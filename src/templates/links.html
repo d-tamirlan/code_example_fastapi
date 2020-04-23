@@ -4,6 +4,11 @@
 
 {% block content %}
     <div class="container">
+        <br>
+        <form action="/users/delete" method="POST">
+            <button type="submit" class="btn btn-danger mb-2">Удалить аккаунт</button>
+        </form>
+        <br>
         <h2>Добавить ссылку</h2>
         <form action="/users/links/add" method="POST" class="form-inline">
             <div class="form-group mx-sm-3 mb-2">

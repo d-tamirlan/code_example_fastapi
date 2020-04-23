@@ -6,8 +6,12 @@ from models import user_db, User
 from conf.conf import templates, fastapi_users
 import crud
 
-
 router = APIRouter()
+
+
+@router.get("/")
+async def index(request: Request):
+    return templates.TemplateResponse('index.html', {'request': request})
 
 
 @router.get("/users/register")
@@ -20,9 +24,11 @@ async def register(request: Request):
     return templates.TemplateResponse('login.html', {'request': request})
 
 
-@router.delete("/users/delete", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("/users/delete", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_user(user: User = Depends(fastapi_users.get_current_active_user)):
     await user_db.delete(user)
+    url = router.url_path_for("index")
+    return RedirectResponse(url=url, status_code=status.HTTP_302_FOUND)
 
 
 @router.get("/users/links")

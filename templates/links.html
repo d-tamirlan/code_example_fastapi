@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block page_title %}Ссылки{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Добавить ссылку</h2>
+        <form action="/users/links/add" method="POST" class="form-inline">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="link" class="sr-only">Ссылка</label>
+                <input type="text" class="form-control" id="link" name="link">
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-2">Добавить</button>
+        </form>
+        <br>
+        <br>
+        <h2>Ссылки</h2>
+        <div class="container">
+            {% for file in file_links %}
+                <hr>
+                <div class="row" style="margin: 10px">
+                    <div class="col-lg-10">
+                        <a href="{{ file.link }}" target="_blank">{{ file.link }}</a>
+                    </div>
+                    <div class="col-sm-1">
+                       <a href="https://drive.google.com/uc?export=download&id={{ file.link|replace('https://drive.google.com/open?id=', '') }}" download class="btn btn-primary">Скачать</a>
+                    </div>
+                    <div class="col-sm-1">
+                        <form action="/users/links/delete/{{ file.id }}" method="POST" style="display: inline-block">
+                        <button class="btn btn-primary">Удалить</button>
+                    </form>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+{#            <div class="row">#}
+{#                {% for file in file_links %}#}
+{##}
+{#                    <a href="{{ file.link }}" target="_blank">{{ file.link }}</a>#}
+{#                    <a href="https://drive.google.com/uc?export=download&id={{ file.link|replace('https://drive.google.com/open?id=', '') }}"#}
+{#                       download>Скачать</a>#}
+{#                    <form action="/users/links/delete/{{ file.id }}" method="POST" style="display: inline-block">#}
+{#                        <button>Удалить</button>#}
+{#                    </form>#}
+{#                {% endfor %}#}
+{##}
+{#            </div>#}
+    </div>
+{% endblock %}

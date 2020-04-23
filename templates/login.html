@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block page_title %}Логин{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Логин</h2>
+        <form action="/api/users/login/jwt" method="POST" onsubmit="login(event)">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Email</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                       name="username">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Пароль</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Логин</button>
+        </form>
+    </div>
+
+   <script>
+    function login(event){
+        event.preventDefault();
+
+        let formData = "username=" + $("input[name='username']").val() + "&password=" + $("input[name='password']").val();
+
+        $.ajax({
+            type: "POST",
+            url: event.target.action,
+            data: formData,
+            success: function (response) {
+                alert('Вы успешно авторизовались!');
+                console.log(response);
+                $.removeCookie("fastapiusersauth");
+                $.cookie("fastapiusersauth", response.token);
+                location.href = "/users/links/"
+            },
+            error: function () {
+                alert('Ошибка авторизации')
+            },
+            contentType: "application/x-www-form-urlencoded"
+        });
+    }
+</script>
+{% endblock %}

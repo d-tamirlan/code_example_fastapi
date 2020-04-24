@@ -1,5 +1,5 @@
-from conf.database import session
-from models import User, FileLinks
+from src.conf.database import session
+from src.models import User, FileLinks
 
 
 def get_links(user: User):

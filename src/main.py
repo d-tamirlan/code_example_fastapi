@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from routers import router
-from conf.conf import fastapi_users
-from conf.database import database
+from src.routers import router
+from src.conf.conf import fastapi_users
+from src.conf.database import database
 
 app = FastAPI()
 

@@ -12,7 +12,6 @@ services:
     container_name: project
     restart: always
     build: .
-    command: bash -c "cd src/ && uvicorn main:app --reload --host 0.0.0.0 --port 8000"
     ports:
       - "8000:8000"
     volumes:

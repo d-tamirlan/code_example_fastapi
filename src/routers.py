@@ -2,9 +2,9 @@ from fastapi import Request, Depends, Form, APIRouter
 from starlette import status
 from starlette.responses import RedirectResponse
 
-from models import user_db, User
-from conf.conf import templates, fastapi_users
-import crud
+from src.models import user_db, User
+from src.conf.conf import templates, fastapi_users
+from src import crud
 
 router = APIRouter()
 

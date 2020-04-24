@@ -2,7 +2,7 @@ from fastapi_users import models
 from fastapi_users.db import SQLAlchemyBaseUserTable, SQLAlchemyUserDatabase
 from sqlalchemy import Column, String, ForeignKey, Integer
 
-from conf.database import Base, database, engine
+from src.conf.database import Base, database, engine
 
 
 class User(models.BaseUser):

@@ -18,6 +18,7 @@ class UserTable(Base, SQLAlchemyBaseUserTable):
 
 
 class FileLinks(Base):
+    """ Таблица ссылок пользователей """
 
     __tablename__ = "files_links"
 

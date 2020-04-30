@@ -5,7 +5,7 @@
 {% block content %}
     <div class="container">
         <br>
-        <form action="/users/delete" method="POST">
+        <form action="/users/delete" method="POST" class="form-inline mx-sm-3 mb-2">
             <button type="submit" class="btn btn-danger mb-2">Удалить аккаунт</button>
         </form>
         <br>
@@ -13,7 +13,7 @@
         <form action="/users/links/add" method="POST" class="form-inline">
             <div class="form-group mx-sm-3 mb-2">
                 <label for="link" class="sr-only">Ссылка</label>
-                <input type="text" class="form-control" id="link" name="link">
+                <input type="text" class="form-control" id="link" name="link" placeholder="Ссылка">
             </div>
 
             <button type="submit" class="btn btn-primary mb-2">Добавить</button>
@@ -40,17 +40,5 @@
             {% endfor %}
 
         </div>
-{#            <div class="row">#}
-{#                {% for file in file_links %}#}
-{##}
-{#                    <a href="{{ file.link }}" target="_blank">{{ file.link }}</a>#}
-{#                    <a href="https://drive.google.com/uc?export=download&id={{ file.link|replace('https://drive.google.com/open?id=', '') }}"#}
-{#                       download>Скачать</a>#}
-{#                    <form action="/users/links/delete/{{ file.id }}" method="POST" style="display: inline-block">#}
-{#                        <button>Удалить</button>#}
-{#                    </form>#}
-{#                {% endfor %}#}
-{##}
-{#            </div>#}
     </div>
 {% endblock %}

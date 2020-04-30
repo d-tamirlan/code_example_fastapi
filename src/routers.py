@@ -2,9 +2,8 @@ from fastapi import Request, Depends, Form, APIRouter
 from starlette import status
 from starlette.responses import RedirectResponse
 
-from src.models import user_db, User
+from src.models import user_db, User, FileLinks
 from src.conf.conf import templates, fastapi_users
-from src import crud
 
 
 router = APIRouter()
@@ -36,6 +35,7 @@ async def delete_user(user: User = Depends(fastapi_users.get_current_active_user
     """ Роут для удаления аккаунта """
 
     await user_db.delete(user)
+
     url = router.url_path_for("index")
     return RedirectResponse(url=url, status_code=status.HTTP_302_FOUND)
 
@@ -44,8 +44,9 @@ async def delete_user(user: User = Depends(fastapi_users.get_current_active_user
 async def files_links(request: Request, user: User = Depends(fastapi_users.get_current_active_user)):
     """ Страница со списком ссылок текущего пользователя """
 
-    file_links = crud.get_links(user)
-    return templates.TemplateResponse('links.html', {'request': request, 'file_links': file_links})
+    file_links = await FileLinks.filter(user_id=user.id)
+
+    return templates.TemplateResponse('links.html', {'request': request, 'user': user, 'file_links': file_links})
 
 
 @router.post("/users/links/add")
@@ -55,7 +56,7 @@ async def files_links_add(
 ):
     """ Роут для добавления ссылок """
 
-    crud.create_link(user, link)
+    await FileLinks.create(user_id=user.id, link=link)
 
     url = router.url_path_for("files_links")
     return RedirectResponse(url=url, status_code=status.HTTP_302_FOUND)
@@ -68,7 +69,7 @@ async def files_links_delete(
 ):
     """ Роут для удаления ссылок """
 
-    crud.delete_link(user, link_id)
+    await FileLinks.filter(id=link_id, user_id=user.id).delete()
 
     url = router.url_path_for("files_links")
     return RedirectResponse(url=url, status_code=status.HTTP_302_FOUND)

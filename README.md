@@ -1,5 +1,5 @@
 # Code example
-__example with using FastAPI, SQLAlchemy and Docker__
+__example with using FastAPI, Tortoise ORM and Docker__
 
 Скопируйте к себе проект и добавьте в корень проекта файл `.env` со следующим содержимым:
 
